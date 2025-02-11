@@ -29,12 +29,12 @@ model Pet {
 }
 
 model Org {
-  id            String @id @default(uuid())
-  name          String
-  author_name   String
-  email         String @unique
-  password_hash String
-  whatsapp      String
+  id          String @id @default(uuid())
+  name        String
+  author_name String
+  email       String @unique
+  password    String
+  whatsapp    String
 
   cep          String
   state        String

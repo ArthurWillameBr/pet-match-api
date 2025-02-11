@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 
 interface Overwrite {
   password?: string;
+  email?: string;
 }
 
 export function makeOrg(overwrite?: Overwrite) {
@@ -10,7 +11,7 @@ export function makeOrg(overwrite?: Overwrite) {
     author_name: faker.person.fullName(),
     cep: faker.location.zipCode(),
     city: faker.location.city(),
-    email: faker.internet.email(),
+    email: overwrite?.email ?? faker.internet.email(),
     latitude: faker.location.latitude(),
     longitude: faker.location.longitude(),
     name: faker.company.name(),

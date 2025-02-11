@@ -42,7 +42,7 @@ export class CreateOrgUseCase {
     const orgWithSameEmail = await this.orgsRepository.findByEmail(email);
 
     if (orgWithSameEmail) {
-      new OrgAlreadyExistsError();
+      throw new OrgAlreadyExistsError();
     }
 
     const password_hash = await hash(password, 8);
@@ -51,7 +51,7 @@ export class CreateOrgUseCase {
       name,
       author_name,
       email,
-      password_hash,
+      password: password_hash,
       cep,
       city,
       neighborhood,

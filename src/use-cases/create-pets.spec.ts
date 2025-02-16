@@ -4,6 +4,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { CreatePetsUseCase } from "./create-pets";
 import { makePet } from "@/tests/factories/make-pet";
 import { makeOrg } from "@/tests/factories/make-org";
+import { OrgNotFoundError } from "./errors/org-not-found-error";
 
 describe("Create pets use case", () => {
   let petsRepository: InMemoryPetsRepository;
@@ -22,5 +23,13 @@ describe("Create pets use case", () => {
 
     expect(petsRepository.items).toHaveLength(1);
     expect(pet.id).toEqual(expect.any(String));
+  });
+
+  it("should not be able to create a new pet if org does not exist", async () => {
+    const pet = makePet();
+
+    await petsRepository.create(pet);
+
+    await expect(sut.execute(pet)).rejects.toBeInstanceOf(OrgNotFoundError);
   });
 });
